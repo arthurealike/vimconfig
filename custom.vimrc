@@ -3,8 +3,59 @@
  ":set ruler "to enable right-bottom numbers
 :set splitright
 :set laststatus=2
+:set listchars=tab:\|\ 
+
+:set guifont=Monaco:s12
+:set list
+":set listchars=tab:\|\
+"add below line to change end of line char
+",eol:↲
+:set encoding=utf-8
+:set tabstop=4
+:set shiftwidth=4
+:set expandtab
+"
+"" air-line
+let g:airline_powerline_fonts = 1
+"
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+"
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+
+"" airline symbols
+"let g:airline_left_sep = ''
+let g:airline_left_alt_sep = '▶'
+"let g:airline_right_sep = ''
+let g:airline_right_alt_sep = '◀'
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
+
 au InsertEnter * hi StatusLine guibg=Red
 au InsertLeave * hi StatusLine guibg=#ccdc90
+
+"save and load view automatically
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
 
 :set nocompatible              " required
 :set encoding=utf-8
@@ -15,8 +66,8 @@ au InsertLeave * hi StatusLine guibg=#ccdc90
 "it prevents accidential indentation removals
 :set backspace=indent,eol,start
 
-filetype off                  " required
-
+filetype on                  " required
+autocmd FileType markdown setlocal noexpandtab tabstop=4 sw=4 sts=4
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_global_ycm_extra_conf='/Users/gurcanbadin/.vim/bundle/youcompleteme/cpp/.ycm_extra_conf.py'
 
@@ -42,11 +93,12 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 
-
+"run *.py <F9>
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
+"leader key is backslash ("\")
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
@@ -62,31 +114,29 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-Plugin 'vim-scripts/indentpython.vim'
 Bundle 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
-Plugin 'jnurmine/Zenburn'
+
+Plugin 'Raimondi/delimitMate'
+Plugin 'Yggdroot/indentLine'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'tikhomirov/vim-glsl'
 Plugin 'beyondmarc/opengl.vim'
-Plugin 'google/vim-maktaba'
+Plugin 'gmarik/Vundle.vim'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
-
-Plugin 'vim-airline/vim-airline'
-Plugin 'Raimondi/delimitMate'
-Plugin 'morhetz/gruvbox'
+Plugin 'google/vim-maktaba'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'jnurmine/Zenburn'
+Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'Yggdroot/indentLine'
-
+Plugin 'morhetz/gruvbox'
+Plugin 'nvie/vim-flake8'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tikhomirov/vim-glsl'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-syntastic/syntastic'
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
 
@@ -118,4 +168,11 @@ map <F2> :NERDTreeToggle<CR>
 "call togglebg#map("§")
 set clipboard=unnamed
 
+"enable 256colors
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
 
+:hi Folded ctermfg=15\ guifg=#378787 ctermbg=20
+"hi Folded ctermfg=241 guifg=#878787 guibg=#FFFFFF 
+"guibg=NONE ctermbg=NONE

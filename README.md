@@ -40,4 +40,4 @@ map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
  "vim-buffers")
  
  ![Alt text](SSNEW2.png
- "vim-splitwindows")v
+ "vim-splitwindows")

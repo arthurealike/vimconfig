@@ -5,6 +5,20 @@
 :set laststatus=2
 :set listchars=tab:\|\ 
 
+"command line completion
+set wim=longest:full,full 
+:set wildmenu
+"set wildmode=longest:list,full
+:set showcmd
+:set showmatch
+:set smartcase
+:set autowrite
+:set incsearch
+
+syntax on
+:set background=dark
+colorscheme onedark
+
 :set guifont=Monaco:s12
 :set list
 ":set listchars=tab:\|\
@@ -15,40 +29,14 @@
 :set shiftwidth=4
 :set expandtab
 "
-"" air-line
-let g:airline_powerline_fonts = 1
-"
+
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 "
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
-
-
-"" airline symbols
-"let g:airline_left_sep = ''
-let g:airline_left_alt_sep = '▶'
-"let g:airline_right_sep = ''
-let g:airline_right_alt_sep = '◀'
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = ''
 
 au InsertEnter * hi StatusLine guibg=Red
 au InsertLeave * hi StatusLine guibg=#ccdc90
@@ -105,7 +93,6 @@ highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-colorscheme koehler
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -116,6 +103,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Bundle 'Valloric/YouCompleteMe'
 
+Plugin 'colors/onedark.vim'
 Plugin 'Raimondi/delimitMate'
 Plugin 'Yggdroot/indentLine'
 Plugin 'altercation/vim-colors-solarized'
@@ -135,6 +123,7 @@ Plugin 'tikhomirov/vim-glsl'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 " add all your plugins here (note older versions of Vundle
@@ -176,3 +165,6 @@ endif
 :hi Folded ctermfg=15\ guifg=#378787 ctermbg=20
 "hi Folded ctermfg=241 guifg=#878787 guibg=#FFFFFF 
 "guibg=NONE ctermbg=NONE
+"
+let g:airline_theme='onedark'
+let g:onedark_termcolors=256

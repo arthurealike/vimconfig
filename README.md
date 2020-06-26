@@ -10,7 +10,6 @@ Make your own or try to get it from the link above.
 * [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) <br> 
 * [delimitMate](https://github.com/Raimondi/delimitMate) <br>
 * [indentLine](https://github.com/Yggdroot/indentLine) <br>
-* [vim-colors-solarized](https://github.com/altercation/vim-colors-solarized) <br>
 * [Vundle.vim](https://github.com/VundleVim/Vundle.vim) <br>
 * [vim-codefmt](https://github.com/google/vim-codefmt) <br>
 * [vim-glaive](https://github.com/google/vim-glaive) <br>

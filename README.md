@@ -35,13 +35,66 @@ map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
 
 ## ScreenShots
 
-### Single Window <br>
- ![Alt text](pngs/Screen%20Shot%20(Single)%202020-06-25%20at%20Latest.png
- "vim-singlew")
+There are screenshots of environments with different colorschemes. I've installed same vim plugins on macOS and ubuntu. <br>
+<br> *Here is the results of my .vimrc configuration on two different OS.*
+
+<br> **Color Schemes** <br>
+* Onedark
+* Gruvbox
+* Koehler
+* Zenburn
+* Dracula
+
+# macOS
+
+### Gruvbox
+
+ ![Alt text](pngs/macOS/Screen%20Shot%20Gruvbox%20Single%202020-06-27%20at%20Latest.png
+ "vim-gruvbox-single")
+
+ ![Alt text](pngs/macOS/Screen%20Shot%20Gruvbox%20Split%20Windows%202020-06-27%20at%20Latest.png 
+ "vim-gruvbox-splitw")
+
+### Onedark
+
+![Alt text](pngs/macOS/Screen%20Shot%20OneDark%20Single(VISUAL)%202020%20at%20Latest.png
+ "vim-onedark-single")
+
+### Koehler
  
-### Split Windows <br>
-![Alt_text](pngs/Screen%20Shot%20(Split%20Windows)%202020-06-25%20at%20Latest%20.png "vim-splitw")
- 
-### Window w/Nerdtree
-![Alt_text](pngs/Screen%20Shot%20(NERDTREE)%202020-06-25%20at%20Latest%2018.55.34.png "vim-splitw")
+ ![Alt text](pngs/macOS/Screen%20Shot%20Koehler%20Single%20Latest%20at%20Latest.png
+ "vim-koehler-single")
+
+### Zenburn
+
+![Alt text](pngs/macOS/Screen%20Shot%20Zenburn%20Single%202020-06-27%20at%20Latest.png
+"vim-zenburn-single")
+
+# Ubuntu
+
+## Gruvbox
+
+![Alt text](pngs/ubuntu/Screenshot%20from%20linux(0).png
+"linux0")
+
+## Koehler
+
+![Alt text](pngs/ubuntu/Screenshot%20from%20linux(1).png
+"linux0")
+
+## Zenburn
+
+![Alt text](pngs/ubuntu/Screenshot%20from%20linux(2).png
+"linux0")
+
+## Onedark
+![Alt text](pngs/ubuntu/Screenshot%20from%20linux(3).png
+"linux0")
+
+## Dracula
+![Alt text](pngs/ubuntu/Screenshot%20from%20linux(4).png
+"linux0")
+
+
+***Baddest text editor on the planet!***
 

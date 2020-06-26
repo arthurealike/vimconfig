@@ -35,8 +35,13 @@ map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
 
 ## ScreenShots
 
- ![Alt text](SSNEW2.png
- "vim-buffers")
+### Single Window <br>
+ ![Alt text](pngs/Screen%20Shot%20(Single)%202020-06-25%20at%20Latest.png
+ "vim-singlew")
  
- ![Alt text](SSNEW2.png
- "vim-splitwindows")
+### Split Windows <br>
+![Alt_text](pngs/Screen%20Shot%20(Split%20Windows)%202020-06-25%20at%20Latest%20.png "vim-splitw")
+ 
+### Window w/Nerdtree
+![Alt_text](pngs/Screen%20Shot%20(NERDTREE)%202020-06-25%20at%20Latest%2018.55.34.png "vim-splitw")
+

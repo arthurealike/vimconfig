@@ -15,9 +15,31 @@ set wim=longest:full,full
 :set autowrite
 :set incsearch
 
-syntax on
-:set background=dark
-colorscheme onedark
+set cul
+set cursorlineopt=both "to highlight current line, and line number 
+"set cursorlineopt=number "to highlight only line number
+
+
+"############ COLOR SCHEME ##############
+"ONEDARK THEME
+"syntax on
+":set background=dark
+"colorscheme onedark
+"let g:airline_theme='onedark'
+"let g:onedark_termcolors=256
+
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+highlight Comment cterm=italic
+
+""DRACULE THEME
+"packadd! dracula
+"syntax enable
+"colorscheme dracula
+"AirlineTheme dracula
+"let g:dracula_italic = 1 
+
+""############ END ##################
 
 :set guifont=Monaco:s12
 :set list
@@ -81,13 +103,36 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 
+"########## KEYMAPPING #############
 "run *.py <F9>
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
+"I had a problem with F keys on my macbook, these mappings 
+"solved that problem.
+map <Esc>OP <F1>
+map <Esc>OQ <F2>
+map <Esc>OR <F3>
+map <Esc>OS <F4>
+map <Esc>[16~ <F5>
+map <Esc>[17~ <F6>
+map <Esc>[18~ <F7>
+map <Esc>[19~ <F8>
+map <Esc>[20~ <F9>
+map <Esc>[21~ <F10>
+map <Esc>[23~ <F11>
+map <Esc>[24~ <F12>
+
 "leader key is backslash ("\")
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+nnoremap <esc> :noh<return><esc>
+ 
+map <F2> :NERDTreeToggle<CR>
+
+"############# (END) ###############
+
 
 highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
 
@@ -98,12 +143,14 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+"let g:airline_theme='onedark'
+"let g:onedark_termcolors=256"call vundle#begin('~/some/path/here')
 
+"############# PLUGIN LIST ###############
 " let Vundle manage Vundle, required
 Bundle 'Valloric/YouCompleteMe'
 
-Plugin 'colors/onedark.vim'
+Plugin 'dracula/vim', { 'name': 'dracula' }
 Plugin 'Raimondi/delimitMate'
 Plugin 'Yggdroot/indentLine'
 Plugin 'altercation/vim-colors-solarized'
@@ -116,6 +163,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'wolfgangmehner/lua-support'
 Plugin 'morhetz/gruvbox'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
@@ -126,14 +174,16 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'aserebryakov/vim-todo-lists'
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
-
 " ...
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+"##############END###############
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4
@@ -142,16 +192,11 @@ au BufNewFile,BufRead *.py
     \ textwidth=79
     \ expandtab
     \ autoindent
-    \ fileformat=unix
 
 let python_highlight_all=1
 syntax on
 
 let g:NERDTreeChDirMode = 2
-
-"mappings
-
-map <F2> :NERDTreeToggle<CR>
 
 "enable below one if you want to toggle bt dark&light modes.
 "call togglebg#map("§")
@@ -163,8 +208,21 @@ if $TERM == "xterm-256color"
 endif
 
 :hi Folded ctermfg=15\ guifg=#378787 ctermbg=20
-"hi Folded ctermfg=241 guifg=#878787 guibg=#FFFFFF 
-"guibg=NONE ctermbg=NONE
-"
-let g:airline_theme='onedark'
-let g:onedark_termcolors=256
+
+set background=dark
+colorscheme dracula
+
+"##### TODO CONFIGURATIONS #####
+
+let g:VimTodoListsDatesEnabled = 1
+let g:VimTodoListsDatesFormat = "%a %d, %Y"
+
+filetype plugin on
+
+"It lookin great with dracula -> ~ tilde color
+"177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet
+highlight NonText ctermfg=177    
+
+"" Disable all blinking:
+":set guicursor+=a:blinkon0
+

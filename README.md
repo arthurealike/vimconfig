@@ -6,6 +6,9 @@ My personal .vimrc file with many useful plugins. <br>
 Check these out to get better results : https://github.com/amix/vimrc, https://devhints.io/vimscript <br>
 Make your own or try to get it from the link above.
 
+### Color Cheatsheet (Xterm)
+[List of 256 colors](https://jonasjacek.github.io/colors/) <br>
+
 ###  Plugins 
 * [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) <br> 
 * [delimitMate](https://github.com/Raimondi/delimitMate) <br>
@@ -23,6 +26,7 @@ Make your own or try to get it from the link above.
 * [gruvbox](https://github.com/morhetz/gruvbox) <br>
 * [vim-glsl](https://github.com/tikhomirov/vim-glsl) <br>
 * [vim-fugitive](https://github.com/tpope/vim-fugitive) <br>
+* [vim-todo-lists](https://github.com/aserebryakov/vim-todo-lists) <br>
   
 ## Key Mappings
 **Leader** key is backslash ("\\")

@@ -106,7 +106,7 @@ There are screenshots of environments with different colorschemes. I've installe
 # *STRONGLY* recommended plugin 
 ##  [vim-todo-lists is a Vim plugin for TODO lists management.](https://github.com/aserebryakov/vim-todo-lists)
 Create a file with .todo extension, leave the rest to plugin. <br>
-I added those lines to .vimrc to insert date automatically when a task is created. 
+<br>I added those lines to .vimrc to insert date automatically when a task is created:<br>
 `let g:VimTodoListsDatesEnabled = 1` <br>
 `let g:VimTodoListsDatesFormat = "%a %d, %Y"`
 

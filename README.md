@@ -6,6 +6,10 @@ My personal .vimrc file with many useful plugins. <br>
 Check these out to get better results : https://github.com/amix/vimrc, https://devhints.io/vimscript <br>
 Make your own or try to get it from the link above.
 
+![Alt text](pngs/macOS/main/Screen%20Shot%20Unity%20C%23%20at%20Latest%20.png
+"vim-unity-c#-main")
+
+
 ### Color Cheatsheet (Xterm)
 [List of 256 colors](https://jonasjacek.github.io/colors/) <br>
 
@@ -99,6 +103,15 @@ There are screenshots of environments with different colorschemes. I've installe
 ![Alt text](pngs/ubuntu/Screenshot%20from%20linux(4).png
 "linux0")
 
+# *STRONGLY* recommended plugin 
+##  [vim-todo-lists is a Vim plugin for TODO lists management.](https://github.com/aserebryakov/vim-todo-lists)
+Create a file with .todo extension, leave the rest to plugin. <br>
+I added those lines to .vimrc to insert date automatically when a task is created. 
+`let g:VimTodoListsDatesEnabled = 1` <br>
+`let g:VimTodoListsDatesFormat = "%a %d, %Y"`
+
+![Alt text](pngs/macOS/main/Screen%20Shot%20todo%20at%20Latest.png
+"vim-todo-main")
 
 ***Baddest text editor on the planet!***
 

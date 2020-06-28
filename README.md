@@ -65,19 +65,20 @@ Press <F5> to launch love <br>
 Let's say, your buffer's path is ~/Desktop/game/main.lua
 and it will run love ~/Desktop/game/ 
 that's it.
+ <br>
   <br>
-`au Filetype lua nmap <buffer> <F5> :call RunLove() <CR>` 
-
-This function does the job. <br>
+`au Filetype lua nmap <buffer> <F5> :call RunLove() <CR>` <br>
+<br> This function does the job. <br>
 
 `function RunLove()
     :lcd %:p:h 
     :!love ``pwd``
 endfunction`
 
-<br>
 <br>Lua scripts remember love functions by a dictionary <br>
-[Dictionary Link](https://raw.githubusercontent.com/josefnpat/dotfiles/master/config/vim/vim/love-dictionary/love.dict) <br>
+
+[Dictionary Link](https://raw.githubusercontent.com/josefnpat/dotfiles/master/config/vim/vim/love-dictionary/love.dict)
+<br>
 Put dictionary file under the .vim/love-dictionary/ directory.
 
 ## ScreenShots

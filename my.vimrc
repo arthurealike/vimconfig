@@ -1,64 +1,58 @@
-:set rnu
-:set nu
+" SECTIONS:  
+"Type find key "/" which is regular slash and type section name with #"
+"#General
+"#Vundle
+"#Plugins
+"#Colors
+"#Airline
+"#Keymapping
+"#vim-todo
+"#YouCompleteME
+"#syntastic
+"#YouCompleteMe
+"#Python
+
+"##########################################
+"#                #General                # 
+"##########################################
+"
+"
+set rnu
+set nu
  ":set ruler "to enable right-bottom numbers
-:set splitright
-:set laststatus=2
-:set listchars=tab:\|\ 
+set splitright
+set laststatus=2
+set listchars=tab:\|\ 
 
 "command line completion
 set wim=longest:full,full 
-:set wildmenu
-"set wildmode=longest:list,full
-:set showcmd
-:set showmatch
-:set smartcase
-:set autowrite
-:set incsearch
+set wildmenu
+set wildmode=longest:list,full
+set showcmd
+set showmatch
+set smartcase
+
+set autowrite
+set incsearch
+
+set lazyredraw
+set mat=2
+set showmatch
+set magic
+
+set ai
+set si
+set wrap
 
 set cul
 set cursorlineopt=both "to highlight current line, and line number 
 "set cursorlineopt=number "to highlight only line number
 
+let g:NERDTreeChDirMode = 2
 
-"############ COLOR SCHEME ##############
-"ONEDARK THEME
-"syntax on
-":set background=dark
-"colorscheme onedark
-"let g:airline_theme='onedark'
-"let g:onedark_termcolors=256
-
-let &t_ZH="\e[3m"
-let &t_ZR="\e[23m"
-highlight Comment cterm=italic
-
-""DRACULE THEME
-"packadd! dracula
-"syntax enable
-"colorscheme dracula
-"AirlineTheme dracula
-"let g:dracula_italic = 1 
-
-""############ END ##################
-
-:set guifont=Monaco:s12
-:set list
-":set listchars=tab:\|\
-"add below line to change end of line char
-",eol:↲
-:set encoding=utf-8
-:set tabstop=4
-:set shiftwidth=4
-:set expandtab
-"
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-"
-let g:airline#extensions#tabline#enabled = 1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
+"enable below one if you want to toggle bt dark&light modes.
+"call togglebg#map("§")
+set clipboard=unnamed
 
 au InsertEnter * hi StatusLine guibg=Red
 au InsertLeave * hi StatusLine guibg=#ccdc90
@@ -78,8 +72,78 @@ au BufWinEnter * silent loadview
 
 filetype on                  " required
 autocmd FileType markdown setlocal noexpandtab tabstop=4 sw=4 sts=4
+
+
+"enable 256colors
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
+
+:hi Folded ctermfg=15\ guifg=#378787 ctermbg=20
+
+"##########################################
+"#                #Colors                 # 
+"##########################################
+
+ "ONEDARK THEME
+"syntax on
+":set background=dark
+"colorscheme onedark
+"let g:airline_theme='onedark'
+"let g:onedark_termcolors=256
+
+"enable italic
+"let &t_ZH="\e[3m"
+"let &t_ZR="\e[23m" highlight Comment cterm=italic
+
+""DRACULE THEME
+"packadd! dracula
+"syntax enable
+"colorscheme dracula
+"AirlineTheme dracula
+"let g:dracula_italic = 1 
+
+"It lookin great with dracula -> ~ tilde color
+"177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet
+highlight NonText ctermfg=177    
+
+
+set background=dark
+colorscheme dracula
+
+"############# (END) ###############
+
+:set guifont=Monaco:s12
+:set list
+":set listchars=tab:\|\
+"add below line to change end of line char
+",eol:↲
+:set encoding=utf-8
+:set tabstop=4
+:set shiftwidth=4
+:set expandtab
+"
+"##########################################
+"#               #Airline                 # 
+"##########################################
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+"
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+"############# (END) ###############
+
+"##########################################
+"#            #YouCompleteMe              #
+"##########################################
+
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_global_ycm_extra_conf='/Users/gurcanbadin/.vim/bundle/youcompleteme/cpp/.ycm_extra_conf.py'
+
 
 " setup for ycm
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py'
@@ -93,6 +157,12 @@ let g:ycm_semantic_triggers =  {
   \ 'python' : ['re!\w{2}'],
   \ }
 
+"############# (END) ###############
+
+"##########################################
+"#               #syntastic               # 
+"##########################################
+
 " setup for syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -103,7 +173,13 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 
-"########## KEYMAPPING #############
+"############# (END) ###############
+
+
+"##########################################
+"#              #Keymapping               # 
+"##########################################
+
 "run *.py <F9>
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
@@ -138,6 +214,11 @@ highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
+"##########################################
+"#                #Vundle                 # 
+"##########################################
+
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -146,7 +227,10 @@ call vundle#begin()
 "let g:airline_theme='onedark'
 "let g:onedark_termcolors=256"call vundle#begin('~/some/path/here')
 
-"############# PLUGIN LIST ###############
+"##########################################
+"#               #Plugins                 # 
+"##########################################
+
 " let Vundle manage Vundle, required
 Bundle 'Valloric/YouCompleteMe'
 
@@ -185,6 +269,10 @@ filetype plugin indent on    " required
 
 "##############END###############
 
+"##########################################
+"#                #Python                 # 
+"##########################################
+
 au BufNewFile,BufRead *.py
     \ set tabstop=4
     \ softtabstop=4
@@ -196,33 +284,19 @@ au BufNewFile,BufRead *.py
 let python_highlight_all=1
 syntax on
 
-let g:NERDTreeChDirMode = 2
+"############# (END) ###############
 
-"enable below one if you want to toggle bt dark&light modes.
-"call togglebg#map("§")
-set clipboard=unnamed
 
-"enable 256colors
-if $TERM == "xterm-256color"
-  set t_Co=256
-endif
-
-:hi Folded ctermfg=15\ guifg=#378787 ctermbg=20
-
-set background=dark
-colorscheme dracula
-
-"##### TODO CONFIGURATIONS #####
+"##########################################
+"#               #vim-todo                # 
+"##########################################
 
 let g:VimTodoListsDatesEnabled = 1
 let g:VimTodoListsDatesFormat = "%a %d, %Y"
 
-filetype plugin on
+"############# (END) ###############
 
-"It lookin great with dracula -> ~ tilde color
-"177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet
-highlight NonText ctermfg=177    
+filetype plugin on
 
 "" Disable all blinking:
 ":set guicursor+=a:blinkon0
-

@@ -14,10 +14,20 @@ Make your own or try to get it from the link above.
 [List of 256 colors](https://jonasjacek.github.io/colors/) <br>
 
 ###  Plugins 
+
 * [YouCompleteMe](https://github.com/ycm-core/YouCompleteMe) <br> 
 * [delimitMate](https://github.com/Raimondi/delimitMate) <br>
 * [indentLine](https://github.com/Yggdroot/indentLine) <br>
 * [Vundle.vim](https://github.com/VundleVim/Vundle.vim) <br>
+* [Dracula](https://github.com/dracula/vim)
+* [OpenGL](https://github.com/beyondmarc/opengl.vim)
+* [Zenburn](https://github.com/jnurmine/Zenburn)
+* [lua-support](https://github.com/wolfgangmehner/lua-support)
+* [vim-lua-ftplugin](https://github.com/xolox/vim-lua-ftplugin)
+* [vim-misc](https://github.com/xolox/vim-misc)
+* [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
+* [indentpython.vim](https://github.com/vim-scripts/indentpython.vim)
+* [ctrlp](https://github.com/kien/ctrlp.vim)
 * [vim-codefmt](https://github.com/google/vim-codefmt) <br>
 * [vim-glaive](https://github.com/google/vim-glaive) <br>
 * [vim-maktaba](https://github.com/google/vim-maktaba) <br>
@@ -40,6 +50,31 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration `<CR>`
 map <F2> :NERDTreeToggle<CR> <br> 
 map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
 <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`
+
+# Love2d (Löve) support
+Biggest advantage is my config is that to launch love in vim by single keyboard stroke.
+There is a [plugin](https://gist.github.com/davisdude/0f46c9c00917fc5c53bb) with 105 LOC
+and it is probably better solution but i didn't get the code well (i am newbie) 
+and tried to make my own and it took only 2 lines of code. 
+
+Do not forget to set $PATH variable for love2d.
+
+Press F5 to launch love and pass your current buffer's path as arg
+Let's say, your buffer's path is ~/Desktop/game/main.lua
+F5 will run love ~/Desktop/game/ 
+that's it.
+`au Filetype lua nmap <buffer> <F5> :call RunLove() <CR>` 
+
+This function does the job.
+`function RunLove()
+    :lcd %:p:h
+    :!love `pwd`
+endfunction`
+
+Lua scripts remember love functions by a dictionary
+[Dictionary Link](https://raw.githubusercontent.com/josefnpat/dotfiles/master/config/vim/vim/love-dictionary/love.dict)
+Put dictionary file under the .vim/love-dictionary/ directory.
+<b> :!lua % <b>
 
 ## ScreenShots
 
@@ -102,6 +137,7 @@ There are screenshots of environments with different colorschemes. I've installe
 ## Dracula
 ![Alt text](pngs/ubuntu/Screenshot%20from%20linux(4).png
 "linux0")
+
 
 # *STRONGLY* recommended plugin 
 ##  [vim-todo-lists is a Vim plugin for TODO lists management.](https://github.com/aserebryakov/vim-todo-lists)

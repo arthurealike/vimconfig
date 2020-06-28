@@ -11,7 +11,7 @@
 "#syntastic
 "#YouCompleteMe
 "#Python
-"#Lua
+"#lua
 "#Bufonly.vim
 "#love2d                 
 
@@ -21,6 +21,10 @@
 
 set rnu
 set nu
+
+"case-insensitive search
+set ic
+
  ":set ruler "to enable right-bottom numbers
 set splitright
 set laststatus=2
@@ -76,58 +80,11 @@ filetype on                  " required
 autocmd FileType markdown setlocal noexpandtab tabstop=4 sw=4 sts=4
 
 
-"enable 256colors
-if $TERM == "xterm-256color"
-  set t_Co=256
-endif
-
-:hi Folded ctermfg=15\ guifg=#378787 ctermbg=20
-
-"##########################################
-"#                #Colors                 # 
-"##########################################
-
- "ONEDARK THEME
-"syntax on
-":set background=dark
-"colorscheme onedark
-"let g:airline_theme='onedark'
-"let g:onedark_termcolors=256
-
-"enable italic
-"let &t_ZH="\e[3m"
-"let &t_ZR="\e[23m" highlight Comment cterm=italic
-
-""DRACULE THEME
-"packadd! dracula
-"syntax enable
-"colorscheme dracula
-"AirlineTheme dracula
-"let g:dracula_italic = 1 
 
    
-function! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunction
-
-set background=dark
-colorscheme dracula
+"UBUNTU USERS!! 
+"IF YOU GET AN ERROR FOR DRACULA THEME 
+"PLACE THEM TO CALL VUNDLE#END()   
 
 "############# (END) ###############
 
@@ -203,8 +160,13 @@ autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%,
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
-
-autocmd FileType lua map <buffer> <F9> :w<CR>:exec '!lua' shellescape(@%, 1)<CR>
+"run when you editing lua file -- this RunLove() function 
+"automatically detects your bufffer's current directory 
+"and call love /path/your/game
+"!!!! do not forget to set your love $PATH variable !!!!!!
+" FOR macOS put this export PATH=$PATH:/Applications/love.app/Contents/MacOS/
+" to your ~/.bash_profile 
+au Filetype lua nmap <buffer> <F5> :call RunLove() <CR> 
 "I had a problem with F keys on my macbook, these mappings 
 "solved that problem.
 map <Esc>OP <F1>
@@ -243,6 +205,19 @@ function SetLovePrefs()
   setlocal iskeyword+=.
 endfunction
 
+"!!!! do not forget to set your love $PATH variable !!!!!!
+" FOR macOS put this export PATH=$PATH:/Applications/love.app/Contents/MacOS/
+" to your ~/.bash_profile 
+
+" This function is totally mine 
+" just  #%!@ 2 lines of code and works well
+function RunLove()
+    :lcd %:p:h
+    :!love `pwd`
+endfunction
+
+"<CR>
+
 autocmd FileType lua call SetLovePrefs()
 
 "############# (END) ###############
@@ -278,6 +253,7 @@ Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 Plugin 'google/vim-maktaba'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'jnurmine/Zenburn'
 Plugin 'kien/ctrlp.vim'
@@ -334,13 +310,35 @@ let g:VimTodoListsDatesFormat = "%a %d, %Y"
 
 
 "##########################################
-"#                  #Lua                  # 
+"#                  #lua                  # 
 "##########################################
 
 function! LuaExecCurrent()
 execute ":w" expand("%")
 execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
 endfunction
+
+
+function! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunction
+
 
     "############# (END) ###############
 
@@ -418,6 +416,42 @@ function! BufOnly(buffer, bang)
 endfunction
 
 filetype plugin on
+
+
+"##########################################
+"#                #Colors                 # 
+"##########################################
+
+ "ONEDARK THEME
+"syntax on
+":set background=dark
+"colorscheme onedark
+"let g:airline_theme='onedark'
+"let g:onedark_termcolors=256
+
+"enable italic
+"let &t_ZH="\e[3m"
+"let &t_ZR="\e[23m" highlight Comment cterm=italic
+
+""DRACULE THEME
+"packadd! dracula
+"syntax enable
+"colorscheme dracula
+"AirlineTheme dracula
+
+"set it to 1 if your terminal supports italic
+let g:dracula_italic = 0 
+
+
+set background=dark
+colorscheme dracula
+
+"enable 256colors
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
+
+:hi Folded ctermfg=15\ guifg=#378787 ctermbg=20
 
 "It lookin great with dracula -> ~ tilde color
 "177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet

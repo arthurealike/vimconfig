@@ -11,12 +11,14 @@
 "#syntastic
 "#YouCompleteMe
 "#Python
+"#Lua
+"#Bufonly.vim
+"#love2d                 
 
 "##########################################
 "#                #General                # 
 "##########################################
-"
-"
+
 set rnu
 set nu
  ":set ruler "to enable right-bottom numbers
@@ -103,10 +105,26 @@ endif
 "AirlineTheme dracula
 "let g:dracula_italic = 1 
 
-"It lookin great with dracula -> ~ tilde color
-"177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet
-highlight NonText ctermfg=177    
-
+   
+function! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunctionfunction! LuaExecMainOrCurrent ()
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunction
 
 set background=dark
 colorscheme dracula
@@ -185,6 +203,8 @@ autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%,
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
+
+autocmd FileType lua map <buffer> <F9> :w<CR>:exec '!lua' shellescape(@%, 1)<CR>
 "I had a problem with F keys on my macbook, these mappings 
 "solved that problem.
 map <Esc>OP <F1>
@@ -213,6 +233,20 @@ map <F2> :NERDTreeToggle<CR>
 highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+"##########################################
+"#                #love2d                 # 
+"##########################################
+
+function SetLovePrefs()
+  setlocal dictionary-=~/.vim/love-dictionary/love.dict dictionary+=~/.vim/love-dictionary/love.dict
+  setlocal iskeyword+=.
+endfunction
+
+autocmd FileType lua call SetLovePrefs()
+
+"############# (END) ###############
+
 
 "##########################################
 "#                #Vundle                 # 
@@ -244,6 +278,7 @@ Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 Plugin 'google/vim-maktaba'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'jnurmine/Zenburn'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
@@ -284,7 +319,7 @@ au BufNewFile,BufRead *.py
 let python_highlight_all=1
 syntax on
 
-"############# (END) ###############
+    "############# (END) ###############
 
 
 "##########################################
@@ -296,7 +331,98 @@ let g:VimTodoListsDatesFormat = "%a %d, %Y"
 
 "############# (END) ###############
 
+
+
+"##########################################
+"#                  #Lua                  # 
+"##########################################
+
+function! LuaExecCurrent()
+execute ":w" expand("%")
+execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunction
+
+    "############# (END) ###############
+
+"########################################################################
+"#                             BuffOnly.vim                             #
+"########################################################################
+" BufOnly.vim  -  Delete all the buffers except the current/named buffer.
+"
+" Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
+"
+" Distributed under the terms of the Vim license.  See ":help license".
+"
+" Usage:
+"
+" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer] 
+"
+" Without any arguments the current buffer is kept.  With an argument the
+" buffer name/number supplied is kept.
+
+command! -nargs=? -complete=buffer -bang Bonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BOnly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang Bufonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BufOnly
+    \ :call BufOnly('<args>', '<bang>')
+
+function! BufOnly(buffer, bang)
+	if a:buffer == ''
+		" No buffer provided, use the current buffer.
+		let buffer = bufnr('%')
+	elseif (a:buffer + 0) > 0
+		" A buffer number was provided.
+		let buffer = bufnr(a:buffer + 0)
+	else
+		" A buffer name was provided.
+		let buffer = bufnr(a:buffer)
+	endif
+
+	if buffer == -1
+		echohl ErrorMsg
+		echomsg "No matching buffer for" a:buffer
+		echohl None
+		return
+	endif
+
+	let last_buffer = bufnr('$')
+
+	let delete_count = 0
+	let n = 1
+	while n <= last_buffer
+		if n != buffer && buflisted(n)
+			if a:bang == '' && getbufvar(n, '&modified')
+				echohl ErrorMsg
+				echomsg 'No write since last change for buffer'
+							\ n '(add ! to override)'
+				echohl None
+			else
+				silent exe 'bdel' . a:bang . ' ' . n
+				if ! buflisted(n)
+					let delete_count = delete_count+1
+				endif
+			endif
+		endif
+		let n = n+1
+	endwhile
+
+	if delete_count == 1
+		echomsg delete_count "buffer deleted"
+	elseif delete_count > 1
+		echomsg delete_count "buffers deleted"
+	endif
+
+endfunction
+
 filetype plugin on
 
+"It lookin great with dracula -> ~ tilde color
+"177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet
+highlight NonText ctermfg=177 
+
+"####################END#####################
 "" Disable all blinking:
 ":set guicursor+=a:blinkon0

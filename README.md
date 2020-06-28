@@ -3,7 +3,9 @@ My personal .vimrc file with many useful plugins. <br>
  * I'm using _**macOS its version : Catalina 10.15.5**_ <br>
  * I uploaded it to backup my config. _Do not ever use my .vimrc file, it is chaotic_ :exploding_head:	
 
-Check these out to get better results : https://github.com/amix/vimrc, https://devhints.io/vimscript <br>
+Check these out to get better results : <br> 
+ https://github.com/amix/vimrc,
+ https://devhints.io/vimscript <br>
 Make your own or try to get it from the link above.
 
 ![Alt text](pngs/macOS/main/Screen%20Shot%20Unity%20C%23%20at%20Latest%20.png
@@ -52,29 +54,31 @@ map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
 <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`
 
 # Love2d (Löve) support
-Biggest advantage is my config is that to launch love in vim by single keyboard stroke.
+Biggest advantage is my config is that to launch, run love in vim by single keyboard stroke.
 There is a [plugin](https://gist.github.com/davisdude/0f46c9c00917fc5c53bb) with 105 LOC
 and it is probably better solution but i didn't get the code well (i am newbie) 
 and tried to make my own and it took only 2 lines of code. 
 
 Do not forget to set $PATH variable for love2d.
 
-Press F5 to launch love and pass your current buffer's path as arg
+Press <F5> to launch love <br>
 Let's say, your buffer's path is ~/Desktop/game/main.lua
-F5 will run love ~/Desktop/game/ 
+and it will run love ~/Desktop/game/ 
 that's it.
+  <br>
 `au Filetype lua nmap <buffer> <F5> :call RunLove() <CR>` 
 
-This function does the job.
+This function does the job. <br>
+
 `function RunLove()
-    :lcd %:p:h
-    :!love `pwd`
+    :lcd %:p:h 
+    :!love ``pwd``
 endfunction`
 
-Lua scripts remember love functions by a dictionary
-[Dictionary Link](https://raw.githubusercontent.com/josefnpat/dotfiles/master/config/vim/vim/love-dictionary/love.dict)
+<br>
+<br>Lua scripts remember love functions by a dictionary <br>
+[Dictionary Link](https://raw.githubusercontent.com/josefnpat/dotfiles/master/config/vim/vim/love-dictionary/love.dict) <br>
 Put dictionary file under the .vim/love-dictionary/ directory.
-<b> :!lua % <b>
 
 ## ScreenShots
 

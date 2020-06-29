@@ -48,26 +48,32 @@ Make your own or try to get it from the link above.
 ## Key Mappings
 **Leader** key is comma (",")
 
-<F2> to toggle NERDTree
-<pre><code> 
-map <F2> :NERDTreeToggle<CR> <br> 
-</code> </pre>
+<F2> Toggle NERDTree: <br>
+```vim
+map <F2> :NERDTreeToggle <CR>
+```
+  
+<F9> Run .py files: <br>
+```vim
+map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1) <CR>
+```
 
-Run .py files with <F9>
-<pre><code> 
-map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
-</code> </pre>
+Delete all buffers except current one: <br>
+```vim
+nmap <buffer> <leader>bb :BufOnly <CR>
+```
 
-Delete all buffers except current one
-`nmap <buffer> <leader>bb :BufOnly <CR>`
+Open .vimrc in a new tab: <br>
+```vim
+nmap <silent> <leader>vr :tabnew $MYVIMRC<CR>
+```
 
-Open .vimrc in a new tab
-`nmap <silent> <leader>vr :tabnew $MYVIMRC<CR>`
+Go to definiton Ycm:
+```vim 
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration <CR>
+```
 
-<pre><code> 
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration `<CR>`
 <br>
-</code> </pre>
 
 # Love2d (Löve) & Lua support
 Biggest advantage is my config is that to run lua scripts and launch love in vim with a single keystroke, and 
@@ -86,36 +92,38 @@ that's it.
   <br>
 
 ### Key Mappings
-`au Filetype lua nmap <buffer> <F5> :call RunLove() <CR>` <br>
-`au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>`
- 
+
+```vim
+au Filetype lua nmap <buffer> <F5> :call RunLove() <CR>
+``` 
+```vim
+au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
+``` 
+
 <br> RunLove function does the job for love and LuaExecCurrent will run any lua script. <br>
  Both execute ClearCmdWin() function which clears current terminal's window.
 
 ### Functions
-<pre><code> 
+```vim
 function RunLove()
      :call ClearCmdwin()
      :lcd %:p:h
      :!love  `pwd` 
 endfunction
-</code></pre>
-
-<pre><code> 
+```
+```vim
 function ClearCmdwin()
     execute ":silent !clear"
     execute ":redraw!"
 endfunction
-</code></pre>
-
-<pre><code> 
+```
+```vim
 function! LuaExecCurrent()
     :call ClearCmdwin() 
     execute ":w" expand("%")
     execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
 endfunction
-</code></pre>
-
+```
 <br>Lua scripts remember love functions by the dictionary, click below to download. <br>
 
 [Dictionary Link](https://raw.githubusercontent.com/josefnpat/dotfiles/master/config/vim/vim/love-dictionary/love.dict)

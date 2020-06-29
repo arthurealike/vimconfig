@@ -1,4 +1,4 @@
-" SECTIONS:  
+"" SECTIONS:  
 "Type find key "/" which is regular slash and type section name with #"
 "#General
 "#Vundle
@@ -47,8 +47,17 @@ set showmatch
 set magic
 
 set ai
+set ci
 set si
 set wrap
+
+set undolevels=1000
+
+set visualbell      
+set noerrorbells        
+
+set nobackup
+set noswapfile
 
 set cul
 set cursorlineopt=both "to highlight current line, and line number 
@@ -79,9 +88,7 @@ au BufWinEnter * silent loadview
 filetype on                  " required
 autocmd FileType markdown setlocal noexpandtab tabstop=4 sw=4 sts=4
 
-
-
-   
+let mapleader = ","
 "UBUNTU USERS!! 
 "IF YOU GET AN ERROR FOR DRACULA THEME 
 "PLACE THEM TO CALL VUNDLE#END()   
@@ -160,13 +167,21 @@ autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%,
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
+au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
+
+"delete all buffers except current one
+nmap <buffer> <leader>bb :BufOnly <CR>
+
+" Open .vimrc in a new tab
+nmap <silent> <leader>vr :tabnew $MYVIMRC<CR>
+
 "run when you editing lua file -- this RunLove() function 
 "automatically detects your bufffer's current directory 
 "and call love /path/your/game
 "!!!! do not forget to set your love $PATH variable !!!!!!
 " FOR macOS put this export PATH=$PATH:/Applications/love.app/Contents/MacOS/
 " to your ~/.bash_profile 
-au Filetype lua nmap <buffer> § :call RunLove() <CR> 
+au Filetype lua nmap <buffer> <F5> :call RunLove() <CR> 
 "I had a problem with F keys on my macbook, these mappings 
 "solved that problem.
 map <Esc>OP <F1>
@@ -258,7 +273,7 @@ Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'jnurmine/Zenburn'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
-"Plugin 'wolfgangmehner/lua-support'
+Plugin 'wolfgangmehner/lua-support'
 Plugin 'morhetz/gruvbox'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
@@ -313,7 +328,6 @@ let g:VimTodoListsDatesFormat = "%a %d, %Y"
 "#                  #lua                  # 
 "##########################################
 
-au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
 
 "this snippet clears cmdwin before running scripts
 "extremely useful 2 lines of code

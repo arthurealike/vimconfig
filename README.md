@@ -46,13 +46,28 @@ Make your own or try to get it from the link above.
 * [vim-todo-lists](https://github.com/aserebryakov/vim-todo-lists) <br>
   
 ## Key Mappings
-**Leader** key is backslash ("\\")
+**Leader** key is comma (",")
 
+<F2> to toggle NERDTree
+<pre><code> 
+map <F2> :NERDTreeToggle<CR> <br> 
+</code> </pre>
+
+Run .py files with <F9>
+<pre><code> 
+map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
+</code> </pre>
+
+Delete all buffers except current one
+`nmap <buffer> <leader>bb :BufOnly <CR>`
+
+Open .vimrc in a new tab
+`nmap <silent> <leader>vr :tabnew $MYVIMRC<CR>`
+
+<pre><code> 
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration `<CR>`
 <br>
-map <F2> :NERDTreeToggle<CR> <br> 
-map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
-<buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`
+</code> </pre>
 
 # Love2d (Löve) & Lua support
 Biggest advantage is my config is that to run lua scripts and launch love in vim with a single keystroke, and 
@@ -70,7 +85,7 @@ that's it.
  <br>
   <br>
 
-### Keymappings
+### Key Mappings
 `au Filetype lua nmap <buffer> <F5> :call RunLove() <CR>` <br>
 `au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>`
  

@@ -4,8 +4,9 @@ My personal .vimrc file with many useful plugins. <br>
  * I uploaded it to backup my config. _Do not ever use my .vimrc file, it is chaotic_ :exploding_head:	
 
 Check these out to get better results : <br> 
- https://github.com/amix/vimrc,
- https://devhints.io/vimscript <br>
+
+https://github.com/amix/vimrc,
+https://devhints.io/vimscript <br>
 Make your own or try to get it from the link above.
 
 ![Alt text](pngs/macOS/main/Screen%20Shot%20Unity%20C%23%20at%20Latest%20.png
@@ -53,8 +54,9 @@ map <F2> :NERDTreeToggle<CR> <br>
 map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`<br>
 <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)`<CR>`
 
-# Love2d (Löve) support
-Biggest advantage is my config is that to launch, run love in vim by single keyboard stroke.
+# Love2d (Löve) & Lua support
+Biggest advantage is my config is that to run lua scripts and launch love in vim with a single keystroke, and 
+every time you run script, command window will be cleared. It works well.
 There is a [plugin](https://gist.github.com/davisdude/0f46c9c00917fc5c53bb) with 105 LOC
 and it is probably better solution but i didn't get the code well (i am newbie) 
 and tried to make my own and it took only 2 lines of code. 
@@ -67,15 +69,39 @@ and it will run love ~/Desktop/game/
 that's it.
  <br>
   <br>
+
+### Keymappings
 `au Filetype lua nmap <buffer> <F5> :call RunLove() <CR>` <br>
-<br> This function does the job. <br>
+`au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>`
+ 
+<br> RunLove function does the job for love and LuaExecCurrent will run any lua script. <br>
+ Both execute ClearCmdWin() function which clears current terminal's window.
 
-`function RunLove()
-    :lcd %:p:h 
-    :!love ``pwd``
-endfunction`
+### Functions
+<pre><code> 
+function RunLove()
+     :call ClearCmdwin()
+     :lcd %:p:h
+     :!love  `pwd` 
+endfunction
+</code></pre>
 
-<br>Lua scripts remember love functions by a dictionary <br>
+<pre><code> 
+function ClearCmdwin()
+    execute ":silent !clear"
+    execute ":redraw!"
+endfunction
+</code></pre>
+
+<pre><code> 
+function! LuaExecCurrent()
+    :call ClearCmdwin() 
+    execute ":w" expand("%")
+    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+endfunction
+</code></pre>
+
+<br>Lua scripts remember love functions by the dictionary, click below to download. <br>
 
 [Dictionary Link](https://raw.githubusercontent.com/josefnpat/dotfiles/master/config/vim/vim/love-dictionary/love.dict)
 <br>

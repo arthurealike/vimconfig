@@ -166,7 +166,7 @@ autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 "!!!! do not forget to set your love $PATH variable !!!!!!
 " FOR macOS put this export PATH=$PATH:/Applications/love.app/Contents/MacOS/
 " to your ~/.bash_profile 
-au Filetype lua nmap <buffer> <F5> :call RunLove() <CR> 
+au Filetype lua nmap <buffer> § :call RunLove() <CR> 
 "I had a problem with F keys on my macbook, these mappings 
 "solved that problem.
 map <Esc>OP <F1>
@@ -181,7 +181,6 @@ map <Esc>[20~ <F9>
 map <Esc>[21~ <F10>
 map <Esc>[23~ <F11>
 map <Esc>[24~ <F12>
-
 "leader key is backslash ("\")
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -212,6 +211,7 @@ endfunction
 " This function is totally mine 
 " just  #%!@ 2 lines of code and works well
 function RunLove()
+    :call ClearCmdwin()
     :lcd %:p:h
     :!love `pwd`
 endfunction
@@ -258,7 +258,7 @@ Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'jnurmine/Zenburn'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'wolfgangmehner/lua-support'
+"Plugin 'wolfgangmehner/lua-support'
 Plugin 'morhetz/gruvbox'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
@@ -313,33 +313,25 @@ let g:VimTodoListsDatesFormat = "%a %d, %Y"
 "#                  #lua                  # 
 "##########################################
 
+au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
+
+"this snippet clears cmdwin before running scripts
+"extremely useful 2 lines of code
+function ClearCmdwin()
+    execute ":silent !clear"
+    execute ":redraw!"
+endfunction
+
+
 function! LuaExecCurrent()
-execute ":w" expand("%")
-execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunction
-
-
-function! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
-    execute ":w" expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
-endfunctionfunction! LuaExecMainOrCurrent ()
+    :call ClearCmdwin() 
     execute ":w" expand("%")
     execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
 endfunction
 
 
+
+"au CmdwinLeave * :Silent clear
     "############# (END) ###############
 
 "########################################################################
@@ -459,4 +451,16 @@ highlight NonText ctermfg=177
 
 "####################END#####################
 "" Disable all blinking:
-":set guicursor+=a:blinkon0
+
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END:set guicursor+=a:blinkon0
+

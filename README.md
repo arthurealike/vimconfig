@@ -106,23 +106,24 @@ au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
 ### Functions
 ```vim
 function RunLove()
-     :call ClearCmdwin()
-     :lcd %:p:h
-     :!love  `pwd` 
+     call ClearCmdwin()
+     lcd %:p:h
+     !love  `pwd` 
 endfunction
 ```
 ```vim
 function ClearCmdwin()
-    execute ":silent !clear"
-    execute ":redraw!"
+    silent !clear
+    redraw!
 endfunction
 ```
 ```vim
 function! LuaExecCurrent()
-    :call ClearCmdwin() 
-    execute ":w" expand("%")
+    call ClearCmdwin() 
+    w expand("%")
     execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
 endfunction
+
 ```
 <br>Lua scripts remember love functions by the dictionary, click below to download. <br>
 

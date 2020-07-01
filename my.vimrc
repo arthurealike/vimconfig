@@ -1,4 +1,4 @@
-"" SECTIONS:  
+" SECTIONS:  
 "Type find key "/" which is regular slash and type section name with #"
 "#General
 "#Vundle
@@ -18,92 +18,132 @@
 "##########################################
 "#                #General                # 
 "##########################################
+        
+        
+" Do not ever change this : 
+" help 'nocompatible'
+set nocp
 
+" It is a deadly sin for vim users to delete this minus symbol
+set mouse-=a
+
+"Relative numbers ** HIGLY RECOMMENDED **
 set rnu
 set nu
 
-"case-insensitive search
-set ic
+set ic "case-insensitive search
 
- ":set ruler "to enable right-bottom numbers
-set splitright
-set laststatus=2
-set listchars=tab:\|\ 
+set ruler "to enable right-bottom numbers in statusbar
+set spr "splitright
+"set laststatus=2
+
+set listchars=tab:\|\  "Indentations looks like modern IDEs with pipe ("|") character
 
 "command line completion
 set wim=longest:full,full 
 set wildmenu
-set wildmode=longest:list,full
 set showcmd
 set showmatch
 set smartcase
 
-set autowrite
-set incsearch
+set aw "autowrite : write file if it has been modified
+set incsearch " show match as search proceeds
 
-set lazyredraw
-set mat=2
-set showmatch
-set magic
+set lazyredraw "when this option is set, the screen will not be redrawn executing macros, registers and other commands that have not typed.
+set showmatch "when a bracket is inserted, briefly jump to the matching one.
+set mat=0 "tenths of a second to show the matching paren, when 'showmatch' is
+set magic "changes the special characters that can be used in search patterns.
 
-set ai
-set ci
-set si
-set wrap
+set ai "autoindent : copy indent from current line when starting a new line
+set ci "copyindent : copy the structure of the existing lines indent when autoindenting new line 
+set si "smartindent : do smart autoindenting when starting a new line 
+set wrap "when on, lines longer than the width of the window will wrap displaying continues on the next line 
 
-set undolevels=1000
+set undolevels=20 "maximum number of changes that can be undone
 
-set visualbell      
-set noerrorbells        
+set visualbell  "if it is on vim will flash its screen instead of sounding a beep    
+set noerrorbells "vim will either beep or flash its screen when an error message is displayed      
 
-set nobackup
-set noswapfile
+set nobackup "when this option is on vim makes a backup before overwriting a file.
+set noswapfile " .swp files store changes were made to the buffer. recoverable if even vim crashes
 
-set cul
+set cul "cursorline : highlight the text line of the cursor with CursorLine
 set cursorlineopt=both "to highlight current line, and line number 
 "set cursorlineopt=number "to highlight only line number
 
-let g:NERDTreeChDirMode = 2
+set autochdir "change cd whenever a new file is opened such as buffers, tabs
+set shortmess+=c "this option helps to avoid all the hit-enter promts 
+                 " +=c  => avoid ins-completion-menu messages such as "Pattern
+                 " Not Found
 
+
+"I DO NOT RECOMMEND TO USE TOGGLE BACKGROUND MODE (DARK, LIGHT)
+"MY RECOMMENDATION IS USE DARK WHICH IS DEFAULT
 "enable below one if you want to toggle bt dark&light modes.
-"call togglebg#map("§")
-set clipboard=unnamed
+"call togglebg#map("<YOUR KEY>")
 
-au InsertEnter * hi StatusLine guibg=Red
-au InsertLeave * hi StatusLine guibg=#ccdc90
 
+set clipboard=unnamed "Vim will use the clipboard register for all yank, delete, change and put operations would normally go to the unnamed register
+
+"WARNING OS X USERS
+"Those lines break NERDTree on MacVim 
+"So do not use !!!
 "save and load view automatically
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+"FIXME au BufWinLeave * mkview
+"FIXME au BufWinEnter * silent loadview
 
-:set nocompatible              " required
-:set encoding=utf-8
-"to enable highlighting when searching for patterns
-:set hlsearch
+:set hlsearch "to enable highlighting when searching for patterns
 :set incsearch "to enable highlighting when starting a search 
+
 "to enable backspace over auto-indentation
 "it prevents accidential indentation removals
 :set backspace=indent,eol,start
 
-filetype on                  " required
-autocmd FileType markdown setlocal noexpandtab tabstop=4 sw=4 sts=4
+filetype on  "when this option is set, the FileType autocommand event is triggered.
 
-let mapleader = ","
+au FileType markdown setlocal noexpandtab tabstop=4 sw=4 sts=4 "markdown indentation
+
+"map leader was "\" by default
+let mapleader = "," 
+
+"my todo path
+let $TODO = '~/Desktop/.todo'
+"my .vimrc path for macOS
+let $MYVIMRC = '~/.vimrc'
+
+
 "UBUNTU USERS!! 
 "IF YOU GET AN ERROR FOR DRACULA THEME 
 "PLACE THEM TO CALL VUNDLE#END()   
 
 "############# (END) ###############
 
-:set guifont=Monaco:s12
-:set list
+:set list "show tabs as CTRL-I is displayed, display $ after end of line
 ":set listchars=tab:\|\
 "add below line to change end of line char
-",eol:↲
+"RECOMMENDED if you do not like pipe character -> ,eol:↲
+"
+"
 :set encoding=utf-8
-:set tabstop=4
+:set tabstop=4 "number of space characters that will be inserted when the tab key is pressed
 :set shiftwidth=4
-:set expandtab
+:set expandtab "to insert space characters whenever the tab key is pressed
+
+
+
+"##########################################
+"#              #NERDTree                 # 
+"##########################################
+"
+"to disable NERDTree to popup for every buffer automatically
+let g:NERDTreeHijackNetrw=0
+
+let g:NERDTreeWinSize=30 "default size for NERDTree window
+
+let g:NERDTreeWinPos = "right" "NERDTree windows position is left by default 
+
+let g:NERDTreeChDirMode = 2
+
 "
 "##########################################
 "#               #Airline                 # 
@@ -133,12 +173,20 @@ let g:ycm_python_binary_path = 'python'
 let g:ycm_complete_in_comments = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_semantic_triggers =  {
-  \ 'c' : ['re!\w{2}'],
-  \ 'cpp' : ['re!\w{2}'],
-  \ 'python' : ['re!\w{2}'],
-  \ }
 
+let g:ycm_semantic_triggers =  {
+  \   'c': ['->', '.'],
+  \   'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \            're!\[.*\]\s'],
+  \   'ocaml': ['.', '#'],
+  \   'cpp,cuda,objcpp': ['->', '.', '::'],
+  \   'perl': ['->'],
+  \   'php': ['->', '::'],
+  \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.'],
+  \   'ruby,rust': ['.', '::'],
+  \   'lua': ['.', ':'],
+  \   'erlang': [':'],
+  \ }
 "############# (END) ###############
 
 "##########################################
@@ -172,8 +220,16 @@ au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
 "delete all buffers except current one
 nmap <buffer> <leader>bb :BufOnly <CR>
 
+"toggle NERDTree window
+nmap <silent> <buffer> <leader>nt :NERDTreeToggle <CR>
 " Open .vimrc in a new tab
 nmap <silent> <leader>vr :tabnew $MYVIMRC<CR>
+
+" Open .todo file 
+nmap <silent> <leader>td :tabnew $TODO<CR>
+au FileType lua call SetLovePrefs()
+
+autocmd StdinReadPre * let s:std_in=1 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "run when you editing lua file -- this RunLove() function 
 "automatically detects your bufffer's current directory 
@@ -181,7 +237,7 @@ nmap <silent> <leader>vr :tabnew $MYVIMRC<CR>
 "!!!! do not forget to set your love $PATH variable !!!!!!
 " FOR macOS put this export PATH=$PATH:/Applications/love.app/Contents/MacOS/
 " to your ~/.bash_profile 
-au Filetype lua nmap <buffer> <F5> :call RunLove() <CR> 
+au Filetype lua nmap <buffer> § :call RunLove() <CR> 
 "I had a problem with F keys on my macbook, these mappings 
 "solved that problem.
 map <Esc>OP <F1>
@@ -205,7 +261,6 @@ map <F2> :NERDTreeToggle<CR>
 
 "############# (END) ###############
 
-
 highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
@@ -215,8 +270,8 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 "##########################################
 
 function SetLovePrefs()
-  setlocal dictionary-=~/.vim/love-dictionary/love.dict dictionary+=~/.vim/love-dictionary/love.dict
-  setlocal iskeyword+=.
+    setlocal dictionary-=~/.vim/love-dictionary/love.dict dictionary+=~/.vim/love-dictionary/love.dict
+    setlocal iskeyword+=.
 endfunction
 
 "!!!! do not forget to set your love $PATH variable !!!!!!
@@ -226,14 +281,13 @@ endfunction
 " This function is totally mine 
 " just  #%!@ 2 lines of code and works well
 function RunLove()
-    :call ClearCmdwin()
-    :lcd %:p:h
-    :!love `pwd`
+    call ClearCmdwin()
+    lcd %:p:h
+    !love `pwd`
 endfunction
 
 "<CR>
 
-autocmd FileType lua call SetLovePrefs()
 
 "############# (END) ###############
 
@@ -250,7 +304,6 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "let g:airline_theme='onedark'
 "let g:onedark_termcolors=256"call vundle#begin('~/some/path/here')
-
 "##########################################
 "#               #Plugins                 # 
 "##########################################
@@ -284,7 +337,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'aserebryakov/vim-todo-lists'
+"Plugin 'aserebryakov/vim-todo-lists'
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
 " ...
@@ -332,18 +385,16 @@ let g:VimTodoListsDatesFormat = "%a %d, %Y"
 "this snippet clears cmdwin before running scripts
 "extremely useful 2 lines of code
 function ClearCmdwin()
-    execute ":silent !clear"
-    execute ":redraw!"
+    silent !clear
+    redraw!
 endfunction
 
 
 function! LuaExecCurrent()
-    :call ClearCmdwin() 
-    execute ":w" expand("%")
+    call ClearCmdwin() 
+    w expand("%")
     execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
 endfunction
-
-
 
 "au CmdwinLeave * :Silent clear
     "############# (END) ###############
@@ -457,7 +508,7 @@ if $TERM == "xterm-256color"
   set t_Co=256
 endif
 
-:hi Folded ctermfg=15\ guifg=#378787 ctermbg=20
+hi Folded ctermfg=15\ guifg=#378787 ctermbg=20 "my custom color for folded lines
 
 "It lookin great with dracula -> ~ tilde color
 "177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet
@@ -473,8 +524,10 @@ function! ResCur()
   endif
 endfunction
 
-augroup resCur
-  autocmd!
-  autocmd BufWinEnter * call ResCur()
-augroup END:set guicursor+=a:blinkon0
+" augroup resCur
+"   autocmd!
+"   autocmd BufWinEnter * call ResCur()
+" augroup END:set guicursor+=a:blinkon0
+
+
 

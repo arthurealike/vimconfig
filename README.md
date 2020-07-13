@@ -9,7 +9,7 @@ https://github.com/amix/vimrc,
 https://devhints.io/vimscript <br>
 Make your own or try to get it from the link above.
 
-![Alt text](pngs/macOS/Screen%20Shot%20MacVim.png
+![Alt text](pngs/macOS/Screen%20Shot%20MacVim%20fix.png
 "vim-unity-c#-main")
 
 

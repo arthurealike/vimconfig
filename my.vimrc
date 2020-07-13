@@ -23,21 +23,24 @@
 " Do not ever change this : 
 " help 'nocompatible'
 set nocp
+ 
+set tws=22x0 "size of terminal window "30x0" uses 30 rows and the current window width.
 
 " It is a deadly sin for vim users to delete this minus symbol
 set mouse-=a
+set guioptions= "hide scrollbars left & right 
 
 "Relative numbers ** HIGLY RECOMMENDED **
 set rnu
 set nu
 
 set ic "case-insensitive search
-
 set ruler "to enable right-bottom numbers in statusbar
 set spr "splitright
 "set laststatus=2
 
-set listchars=tab:\|\  "Indentations looks like modern IDEs with pipe ("|") character
+"set listchars=tab:\|., trail:., extends:#, nbsp:. "",nbsp:·,trail:·
+set listchars=tab:\|.,trail:·,extends:#,nbsp:\|,trail:·,precedes:\|
 
 "command line completion
 set wim=longest:full,full 
@@ -59,7 +62,7 @@ set ci "copyindent : copy the structure of the existing lines indent when autoin
 set si "smartindent : do smart autoindenting when starting a new line 
 set wrap "when on, lines longer than the width of the window will wrap displaying continues on the next line 
 
-set undolevels=20 "maximum number of changes that can be undone
+set undolevels=30 "maximum number of changes that can be undone
 
 set visualbell  "if it is on vim will flash its screen instead of sounding a beep    
 set noerrorbells "vim will either beep or flash its screen when an error message is displayed      
@@ -68,20 +71,19 @@ set nobackup "when this option is on vim makes a backup before overwriting a fil
 set noswapfile " .swp files store changes were made to the buffer. recoverable if even vim crashes
 
 set cul "cursorline : highlight the text line of the cursor with CursorLine
-set cursorlineopt=both "to highlight current line, and line number 
-"set cursorlineopt=number "to highlight only line number
+"set cursorlineopt=both "to highlight current line, and line number 
+set cursorlineopt=number "to highlight only line number
+"set cursorlineopt=screenline
 
 set autochdir "change cd whenever a new file is opened such as buffers, tabs
 set shortmess+=c "this option helps to avoid all the hit-enter promts 
                  " +=c  => avoid ins-completion-menu messages such as "Pattern
                  " Not Found
 
-
 "I DO NOT RECOMMEND TO USE TOGGLE BACKGROUND MODE (DARK, LIGHT)
 "MY RECOMMENDATION IS USE DARK WHICH IS DEFAULT
 "enable below one if you want to toggle bt dark&light modes.
 "call togglebg#map("<YOUR KEY>")
-
 
 set clipboard=unnamed "Vim will use the clipboard register for all yank, delete, change and put operations would normally go to the unnamed register
 
@@ -111,7 +113,6 @@ let $TODO = '~/Desktop/.todo'
 "my .vimrc path for macOS
 let $MYVIMRC = '~/.vimrc'
 
-
 "UBUNTU USERS!! 
 "IF YOU GET AN ERROR FOR DRACULA THEME 
 "PLACE THEM TO CALL VUNDLE#END()   
@@ -130,34 +131,51 @@ let $MYVIMRC = '~/.vimrc'
 :set expandtab "to insert space characters whenever the tab key is pressed
 
 
-
-"##########################################
-"#              #NERDTree                 # 
-"##########################################
-"
-"to disable NERDTree to popup for every buffer automatically
-let g:NERDTreeHijackNetrw=0
-
-let g:NERDTreeWinSize=30 "default size for NERDTree window
-
-let g:NERDTreeWinPos = "right" "NERDTree windows position is left by default 
-
-let g:NERDTreeChDirMode = 2
-
-"
 "##########################################
 "#               #Airline                 # 
 "##########################################
 
+let g:airline_powerline_fonts = 1 " disable it if you did not install font for powerline
+
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-"
+
+"smarter tab line
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
 "############# (END) ###############
+
+
+"##########################################
+"#              #NERDTree                 # 
+"##########################################
+"
+let g:NERDTreeDirArrows=0
+
+let NERDTreeShowHidden=1
+
+let g:NERDTreeHijackNetrw=0 "to disable NERDTree to popup for every buffer automatically
+
+let g:NERDTreeWinSize=30 "default size for NERDTree window
+
+let g:NERDTreeWinPos = "right" "NERDTree windows position is left by default 
+
+let g:NERDTreeChDirMode = 2 "change directory
+
+let g:NERDTreeGlyphReadOnly = "RO"
+
+let NERDTreeQuitOnOpen = 1
+
+let NERDTreeAutoDeleteBuffer = 1
+
+"let NERDTreeMinimalUI = 1
+"let NERDTreeDirArrows = 1
+
+autocmd! BufWinEnter * if(winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 
 "##########################################
 "#            #YouCompleteMe              #
@@ -210,10 +228,24 @@ let g:syntastic_python_checkers = ['flake8']
 "#              #Keymapping               # 
 "##########################################
 
+"run console 
+map <leader>te :terminal <CR>
+
+map <leader>w :w <CR>
+
+"open every lua file in tabs for current directory 
+map <leader>lua :Tabe *.lua<CR>
+
+"ctrl-a select all doc
+map <C-a> <esc>ggVG<CR>
+
+"indent
+map <leader>ii <esc> gg=G <CR>
+
 "run *.py <F9>
-autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl
+au FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+au FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+au! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
 au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
 
@@ -221,7 +253,8 @@ au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
 nmap <buffer> <leader>bb :BufOnly <CR>
 
 "toggle NERDTree window
-nmap <silent> <buffer> <leader>nt :NERDTreeToggle <CR>
+map <leader>nt :NERDTreeToggle <CR>
+
 " Open .vimrc in a new tab
 nmap <silent> <leader>vr :tabnew $MYVIMRC<CR>
 
@@ -229,7 +262,7 @@ nmap <silent> <leader>vr :tabnew $MYVIMRC<CR>
 nmap <silent> <leader>td :tabnew $TODO<CR>
 au FileType lua call SetLovePrefs()
 
-autocmd StdinReadPre * let s:std_in=1 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+au StdinReadPre * let s:std_in=1 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif  "refresh memory
 
 "run when you editing lua file -- this RunLove() function 
 "automatically detects your bufffer's current directory 
@@ -257,7 +290,7 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 nnoremap <esc> :noh<return><esc>
  
-map <F2> :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle <CR>
 
 "############# (END) ###############
 
@@ -269,7 +302,7 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 "#                #love2d                 # 
 "##########################################
 
-function SetLovePrefs()
+function! SetLovePrefs()
     setlocal dictionary-=~/.vim/love-dictionary/love.dict dictionary+=~/.vim/love-dictionary/love.dict
     setlocal iskeyword+=.
 endfunction
@@ -280,17 +313,13 @@ endfunction
 
 " This function is totally mine 
 " just  #%!@ 2 lines of code and works well
-function RunLove()
+function! RunLove()
     call ClearCmdwin()
     lcd %:p:h
     !love `pwd`
 endfunction
 
-"<CR>
-
-
 "############# (END) ###############
-
 
 "##########################################
 "#                #Vundle                 # 
@@ -320,13 +349,14 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 Plugin 'google/vim-maktaba'
-Plugin 'jistr/vim-nerdtree-tabs'
+"nerdtreetabs caused err on my macvim
+"Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'jnurmine/Zenburn'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'wolfgangmehner/lua-support'
+"Plugin 'wolfgangmehner/lua-support'
 Plugin 'morhetz/gruvbox'
 Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
@@ -337,7 +367,8 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
-"Plugin 'aserebryakov/vim-todo-lists'
+Plugin 'aserebryakov/vim-todo-lists'
+
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
 " ...
@@ -347,6 +378,7 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 "##############END###############
+
 
 "##########################################
 "#                #Python                 # 
@@ -364,7 +396,6 @@ let python_highlight_all=1
 syntax on
 
     "############# (END) ###############
-
 
 "##########################################
 "#               #vim-todo                # 
@@ -384,7 +415,7 @@ let g:VimTodoListsDatesFormat = "%a %d, %Y"
 
 "this snippet clears cmdwin before running scripts
 "extremely useful 2 lines of code
-function ClearCmdwin()
+function! ClearCmdwin()
     silent !clear
     redraw!
 endfunction
@@ -392,9 +423,11 @@ endfunction
 
 function! LuaExecCurrent()
     call ClearCmdwin() 
-    w expand("%")
-    execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
+    w! expand("%")
+    !lua %
+    "execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
 endfunction
+
 
 "au CmdwinLeave * :Silent clear
     "############# (END) ###############
@@ -474,7 +507,6 @@ endfunction
 
 filetype plugin on
 
-
 "##########################################
 "#                #Colors                 # 
 "##########################################
@@ -497,8 +529,7 @@ filetype plugin on
 "AirlineTheme dracula
 
 "set it to 1 if your terminal supports italic
-let g:dracula_italic = 0 
-
+let g:dracula_italic = 1 
 
 set background=dark
 colorscheme dracula
@@ -512,22 +543,26 @@ hi Folded ctermfg=15\ guifg=#378787 ctermbg=20 "my custom color for folded lines
 
 "It lookin great with dracula -> ~ tilde color
 "177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet
-highlight NonText ctermfg=177 
+highlight NonText ctermfg=177
 
 "####################END#####################
-"" Disable all blinking:
 
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
+"################ #Tabe Function ####################
+"a function to open spesific files on current dir
+
+command! -complete=file -nargs=* Tabe call Tabe(<f-args>)
+function! Tabe(...)
+  let t = tabpagenr()
+  let i = 0
+  for f in a:000
+    for g in glob(f, 0, 1)
+      exe "tabe " . fnameescape(g)
+      let i = i + 1
+    endfor
+  endfor
+  if i
+    exe "tabn " . (t + 1)
   endif
 endfunction
 
-" augroup resCur
-"   autocmd!
-"   autocmd BufWinEnter * call ResCur()
-" augroup END:set guicursor+=a:blinkon0
-
-
-
+"####################END#####################

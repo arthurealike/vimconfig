@@ -18,12 +18,12 @@
 "##########################################
 "#                #General                # 
 "##########################################
-        
-        
+
+
 " Do not ever change this : 
 " help 'nocompatible'
 set nocp
- 
+
 set tws=22x0 "size of terminal window "30x0" uses 30 rows and the current window width.
 
 " It is a deadly sin for vim users to delete this minus symbol
@@ -43,7 +43,7 @@ set spr "splitright
 set listchars=tab:\|.,trail:·,extends:#,nbsp:\|,trail:·,precedes:\|
 
 "command line completion
-set wim=longest:full,full 
+set wim=longest:full,full
 set wildmenu
 set showcmd
 set showmatch
@@ -58,27 +58,27 @@ set mat=0 "tenths of a second to show the matching paren, when 'showmatch' is
 set magic "changes the special characters that can be used in search patterns.
 
 set ai "autoindent : copy indent from current line when starting a new line
-set ci "copyindent : copy the structure of the existing lines indent when autoindenting new line 
-set si "smartindent : do smart autoindenting when starting a new line 
-set wrap "when on, lines longer than the width of the window will wrap displaying continues on the next line 
+set ci "copyindent : copy the structure of the existing lines indent when autoindenting new line
+set si "smartindent : do smart autoindenting when starting a new line
+set wrap "when on, lines longer than the width of the window will wrap displaying continues on the next line
 
 set undolevels=30 "maximum number of changes that can be undone
 
-set visualbell  "if it is on vim will flash its screen instead of sounding a beep    
-set noerrorbells "vim will either beep or flash its screen when an error message is displayed      
+set visualbell  "if it is on vim will flash its screen instead of sounding a beep
+set noerrorbells "vim will either beep or flash its screen when an error message is displayed
 
 set nobackup "when this option is on vim makes a backup before overwriting a file.
 set noswapfile " .swp files store changes were made to the buffer. recoverable if even vim crashes
 
 set cul "cursorline : highlight the text line of the cursor with CursorLine
-"set cursorlineopt=both "to highlight current line, and line number 
+"set cursorlineopt=both "to highlight current line, and line number
 set cursorlineopt=number "to highlight only line number
 "set cursorlineopt=screenline
 
 set autochdir "change cd whenever a new file is opened such as buffers, tabs
-set shortmess+=c "this option helps to avoid all the hit-enter promts 
-                 " +=c  => avoid ins-completion-menu messages such as "Pattern
-                 " Not Found
+set shortmess+=c "this option helps to avoid all the hit-enter promts
+" +=c  => avoid ins-completion-menu messages such as "Pattern
+" Not Found
 
 "I DO NOT RECOMMEND TO USE TOGGLE BACKGROUND MODE (DARK, LIGHT)
 "MY RECOMMENDATION IS USE DARK WHICH IS DEFAULT
@@ -87,15 +87,17 @@ set shortmess+=c "this option helps to avoid all the hit-enter promts
 
 set clipboard=unnamed "Vim will use the clipboard register for all yank, delete, change and put operations would normally go to the unnamed register
 
+set completeopt+=noinsert "Prevents unwanted autocompletes"
+
 "WARNING OS X USERS
-"Those lines break NERDTree on MacVim 
+"Those lines break NERDTree on MacVim
 "So do not use !!!
 "save and load view automatically
 "FIXME au BufWinLeave * mkview
 "FIXME au BufWinEnter * silent loadview
 
 :set hlsearch "to enable highlighting when searching for patterns
-:set incsearch "to enable highlighting when starting a search 
+:set incsearch "to enable highlighting when starting a search
 
 "to enable backspace over auto-indentation
 "it prevents accidential indentation removals
@@ -106,16 +108,16 @@ filetype on  "when this option is set, the FileType autocommand event is trigger
 au FileType markdown setlocal noexpandtab tabstop=4 sw=4 sts=4 "markdown indentation
 
 "map leader was "\" by default
-let mapleader = "," 
+let mapleader = ","
 
 "my todo path
-let $TODO = '~/Desktop/.todo'
+let $TODO = '~/.todo.md'
 "my .vimrc path for macOS
 let $MYVIMRC = '~/.vimrc'
 
-"UBUNTU USERS!! 
-"IF YOU GET AN ERROR FOR DRACULA THEME 
-"PLACE THEM TO CALL VUNDLE#END()   
+"UBUNTU USERS!!
+"IF YOU GET AN ERROR FOR DRACULA THEME
+"PLACE THEM TO CALL VUNDLE#END()
 
 "############# (END) ###############
 
@@ -132,8 +134,10 @@ let $MYVIMRC = '~/.vimrc'
 
 
 "##########################################
-"#               #Airline                 # 
+"#               #Airline                 #
 "##########################################
+"remove airline whitespace feedback on bottom bar
+let g:airline_detect_whitespace=0
 
 let g:airline_powerline_fonts = 1 " disable it if you did not install font for powerline
 
@@ -150,7 +154,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 
 "##########################################
-"#              #NERDTree                 # 
+"#              #NERDTree                 #
 "##########################################
 "
 let g:NERDTreeDirArrows=0
@@ -193,18 +197,18 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
 let g:ycm_semantic_triggers =  {
-  \   'c': ['->', '.'],
-  \   'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-  \            're!\[.*\]\s'],
-  \   'ocaml': ['.', '#'],
-  \   'cpp,cuda,objcpp': ['->', '.', '::'],
-  \   'perl': ['->'],
-  \   'php': ['->', '::'],
-  \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.'],
-  \   'ruby,rust': ['.', '::'],
-  \   'lua': ['.', ':'],
-  \   'erlang': [':'],
-  \ }
+            \   'c': ['->', '.'],
+            \   'objc': ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+            \            're!\[.*\]\s'],
+            \   'ocaml': ['.', '#'],
+            \   'cpp,cuda,objcpp': ['->', '.', '::'],
+            \   'perl': ['->'],
+            \   'php': ['->', '::'],
+            \   'cs,d,elixir,go,groovy,java,javascript,julia,perl6,python,scala,typescript,vb': ['.'],
+            \   'ruby,rust': ['.', '::'],
+            \   'lua': ['.', ':'],
+            \   'erlang': [':'],
+            \ }
 "############# (END) ###############
 
 "##########################################
@@ -233,14 +237,16 @@ map <leader>te :terminal <CR>
 
 map <leader>w :w <CR>
 
-"open every lua file in tabs for current directory 
+map <leader>q :q <CR>
+
+"open every lua file in tabs for current dir
 map <leader>lua :Tabe *.lua<CR>
 
 "ctrl-a select all doc
 map <C-a> <esc>ggVG<CR>
 
 "indent
-map <leader>ii <esc> gg=G <CR>
+map <leader>ii <esc> gg=G 2<C-o> <CR>
 
 "run *.py <F9>
 au FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
@@ -289,7 +295,7 @@ map <Esc>[24~ <F12>
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 nnoremap <esc> :noh<return><esc>
- 
+
 map <F2> :NERDTreeToggle <CR>
 
 "############# (END) ###############
@@ -379,23 +385,22 @@ filetype plugin indent on    " required
 
 "##############END###############
 
-
 "##########################################
 "#                #Python                 # 
 "##########################################
 
 au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ softtabstop=4
-    \ shiftwidth=4
-    \ textwidth=79
-    \ expandtab
-    \ autoindent
+            \ set tabstop=4
+            \ softtabstop=4
+            \ shiftwidth=4
+            \ textwidth=79
+            \ expandtab
+            \ autoindent
 
 let python_highlight_all=1
 syntax on
 
-    "############# (END) ###############
+"############# (END) ###############
 
 "##########################################
 "#               #vim-todo                # 
@@ -405,8 +410,6 @@ let g:VimTodoListsDatesEnabled = 1
 let g:VimTodoListsDatesFormat = "%a %d, %Y"
 
 "############# (END) ###############
-
-
 
 "##########################################
 "#                  #lua                  # 
@@ -420,7 +423,6 @@ function! ClearCmdwin()
     redraw!
 endfunction
 
-
 function! LuaExecCurrent()
     call ClearCmdwin() 
     w! expand("%")
@@ -430,7 +432,7 @@ endfunction
 
 
 "au CmdwinLeave * :Silent clear
-    "############# (END) ###############
+"############# (END) ###############
 
 "########################################################################
 "#                             BuffOnly.vim                             #
@@ -449,59 +451,59 @@ endfunction
 " buffer name/number supplied is kept.
 
 command! -nargs=? -complete=buffer -bang Bonly
-    \ :call BufOnly('<args>', '<bang>')
+            \ :call BufOnly('<args>', '<bang>')
 command! -nargs=? -complete=buffer -bang BOnly
-    \ :call BufOnly('<args>', '<bang>')
+            \ :call BufOnly('<args>', '<bang>')
 command! -nargs=? -complete=buffer -bang Bufonly
-    \ :call BufOnly('<args>', '<bang>')
+            \ :call BufOnly('<args>', '<bang>')
 command! -nargs=? -complete=buffer -bang BufOnly
-    \ :call BufOnly('<args>', '<bang>')
+            \ :call BufOnly('<args>', '<bang>')
 
 function! BufOnly(buffer, bang)
-	if a:buffer == ''
-		" No buffer provided, use the current buffer.
-		let buffer = bufnr('%')
-	elseif (a:buffer + 0) > 0
-		" A buffer number was provided.
-		let buffer = bufnr(a:buffer + 0)
-	else
-		" A buffer name was provided.
-		let buffer = bufnr(a:buffer)
-	endif
+    if a:buffer == ''
+        " No buffer provided, use the current buffer.
+        let buffer = bufnr('%')
+    elseif (a:buffer + 0) > 0
+        " A buffer number was provided.
+        let buffer = bufnr(a:buffer + 0)
+    else
+        " A buffer name was provided.
+        let buffer = bufnr(a:buffer)
+    endif
 
-	if buffer == -1
-		echohl ErrorMsg
-		echomsg "No matching buffer for" a:buffer
-		echohl None
-		return
-	endif
+    if buffer == -1
+        echohl ErrorMsg
+        echomsg "No matching buffer for" a:buffer
+        echohl None
+        return
+    endif
 
-	let last_buffer = bufnr('$')
+    let last_buffer = bufnr('$')
 
-	let delete_count = 0
-	let n = 1
-	while n <= last_buffer
-		if n != buffer && buflisted(n)
-			if a:bang == '' && getbufvar(n, '&modified')
-				echohl ErrorMsg
-				echomsg 'No write since last change for buffer'
-							\ n '(add ! to override)'
-				echohl None
-			else
-				silent exe 'bdel' . a:bang . ' ' . n
-				if ! buflisted(n)
-					let delete_count = delete_count+1
-				endif
-			endif
-		endif
-		let n = n+1
-	endwhile
+    let delete_count = 0
+    let n = 1
+    while n <= last_buffer
+        if n != buffer && buflisted(n)
+            if a:bang == '' && getbufvar(n, '&modified')
+                echohl ErrorMsg
+                echomsg 'No write since last change for buffer'
+                            \ n '(add ! to override)'
+                echohl None
+            else
+                silent exe 'bdel' . a:bang . ' ' . n
+                if ! buflisted(n)
+                    let delete_count = delete_count+1
+                endif
+            endif
+        endif
+        let n = n+1
+    endwhile
 
-	if delete_count == 1
-		echomsg delete_count "buffer deleted"
-	elseif delete_count > 1
-		echomsg delete_count "buffers deleted"
-	endif
+    if delete_count == 1
+        echomsg delete_count "buffer deleted"
+    elseif delete_count > 1
+        echomsg delete_count "buffers deleted"
+    endif
 
 endfunction
 
@@ -511,7 +513,7 @@ filetype plugin on
 "#                #Colors                 # 
 "##########################################
 
- "ONEDARK THEME
+"ONEDARK THEME
 "syntax on
 ":set background=dark
 "colorscheme onedark
@@ -536,7 +538,7 @@ colorscheme dracula
 
 "enable 256colors
 if $TERM == "xterm-256color"
-  set t_Co=256
+    set t_Co=256
 endif
 
 hi Folded ctermfg=15\ guifg=#378787 ctermbg=20 "my custom color for folded lines
@@ -552,17 +554,17 @@ highlight NonText ctermfg=177
 
 command! -complete=file -nargs=* Tabe call Tabe(<f-args>)
 function! Tabe(...)
-  let t = tabpagenr()
-  let i = 0
-  for f in a:000
-    for g in glob(f, 0, 1)
-      exe "tabe " . fnameescape(g)
-      let i = i + 1
+    let t = tabpagenr()
+    let i = 0
+    for f in a:000
+        for g in glob(f, 0, 1)
+            exe "tabe " . fnameescape(g)
+            let i = i + 1
+        endfor
     endfor
-  endfor
-  if i
-    exe "tabn " . (t + 1)
-  endif
+    if i
+        exe "tabn " . (t + 1)
+    endif
 endfunction
 
 "####################END#####################

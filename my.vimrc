@@ -16,6 +16,47 @@
 "#Bufonly.vim
 "#love2d                 
 
+
+"Installed plugins
+"-delimitMate'
+"-indentLine'
+"-vim-colors-solarized'
+"-opengl.vim'
+"-nerdtree-git-plugin'
+"-Vundle.vim'
+"-vim-codefmt'
+"-vim-glaive'
+"-vim-maktaba'
+"-vim-obsession'
+"-vim-surround'
+"-coc.nvim'  " alternative
+"-fzf.vim'
+"-vim-devicons' "enable if you have nerd-font
+"-vim-jsx-pretty'
+"-vim-js'
+"-vim-nerdtree-tabs'
+"-vim-misc'
+"-vim-lua-ftplugin'
+"-Zenburn'
+"-ctrlp.vim'
+"-tagbar'
+"-vim-asm_ca65'
+"-lua-support'
+"-gruvbox'
+"-vim-flake8'
+"-nerdtree'
+"-vim-glsl'
+"-SimpylFold'
+"-fugitive'
+"-vim-airline'
+"-vim-airline-themes'
+"-indentpython.vim'
+"-syntastic'
+"-vim-todo-lists'
+"-dart-vim-plugin'
+"-vim-lsc'
+"-vim-lsc-dart'
+
 "Leader key is ","
 "##########################################
 "#                #General                # 
@@ -422,13 +463,13 @@ Plugin 'google/vim-glaive'
 Plugin 'google/vim-maktaba'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-surround'
-Plugin 'neoclide/coc.nvim'  " intellisense engine for vim (>= 8.1)
+"Plugin 'neoclide/coc.nvim'  " intellisense engine for vim (>= 8.1)
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 "Plugin 'ryanoasis/vim-devicons' " enable if you have nerd-font
 Plugin 'maxmellon/vim-jsx-pretty'
 Plugin 'yuezk/vim-js'
-"nerdtreetabs caused err on my macvim
+"nerdtreetabs caused err on my mvim
 "Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-lua-ftplugin'

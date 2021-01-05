@@ -15,6 +15,7 @@
 "#Bufonly.vim
 "#love2d                 
 
+"Leader key is ","
 "##########################################
 "#                #General                # 
 "##########################################
@@ -25,6 +26,8 @@
 set nocp
 
 set tws=22x0 "size of terminal window "30x0" uses 30 rows and the current window width.
+
+set encoding=UTF-8
 
 " It is a deadly sin for vim users to delete this minus symbol
 set mouse-=a
@@ -50,7 +53,9 @@ set showmatch
 set smartcase
 
 set aw "autowrite : write file if it has been modified
-set incsearch " show match as search proceeds
+
+" Give more space for displaying messages.
+set cmdheight=2
 
 set lazyredraw "when this option is set, the screen will not be redrawn executing macros, registers and other commands that have not typed.
 set showmatch "when a bracket is inserted, briefly jump to the matching one.
@@ -62,13 +67,22 @@ set ci "copyindent : copy the structure of the existing lines indent when autoin
 set si "smartindent : do smart autoindenting when starting a new line
 set wrap "when on, lines longer than the width of the window will wrap displaying continues on the next line
 
-set undolevels=30 "maximum number of changes that can be undone
+set undolevels=300 "maximum number of changes that can be undone
 
 set visualbell  "if it is on vim will flash its screen instead of sounding a beep
 set noerrorbells "vim will either beep or flash its screen when an error message is displayed
 
+" Some servers have issues with backup files
+set nowritebackup
 set nobackup "when this option is on vim makes a backup before overwriting a file.
 set noswapfile " .swp files store changes were made to the buffer. recoverable if even vim crashes
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 
 set cul "cursorline : highlight the text line of the cursor with CursorLine
 "set cursorlineopt=both "to highlight current line, and line number
@@ -129,6 +143,7 @@ let $MYVIMRC = '~/.vimrc'
 "
 :set encoding=utf-8
 :set tabstop=4 "number of space characters that will be inserted when the tab key is pressed
+:set shiftround
 :set shiftwidth=4
 :set expandtab "to insert space characters whenever the tab key is pressed
 
@@ -152,12 +167,23 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 "############# (END) ###############
 
+"##########################################
+"#              #Flutter                  #
+"##########################################
 
+let g:lsc_auto_map = v:true
+
+"############# (END) ###############
+"
+"
 "##########################################
 "#              #NERDTree                 #
 "##########################################
 "
-let g:NERDTreeDirArrows=0
+"let g:NERDTreeDirArrows=0
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 let NERDTreeShowHidden=1
 
@@ -180,6 +206,7 @@ let NERDTreeAutoDeleteBuffer = 1
 
 autocmd! BufWinEnter * if(winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 
 "##########################################
 "#            #YouCompleteMe              #
@@ -237,20 +264,21 @@ map <leader>te :terminal <CR>
 
 map <leader>w :w <CR>
 
-map <leader>q :q <CR>
+map <leader>qq :q <CR>
 
 "open every lua file in tabs for current dir
 map <leader>lua :Tabe *.lua<CR>
 
+"It has a collision with incrementer (<c-a>) **not recommended.**
 "ctrl-a select all doc
-map <C-a> <esc>ggVG<CR>
+"nmap <C-a> <esc>ggVG<CR>
 
 "indent
 map <leader>ii <esc> gg=G 2<C-o> <CR>
 
 "run *.py <F9>
-au FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-au FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+au FileType python noremap <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+au FileType python noremap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 au! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
 au Filetype lua nmap <buffer> <F10> :call LuaExecCurrent() <CR>
@@ -291,7 +319,7 @@ map <Esc>[20~ <F9>
 map <Esc>[21~ <F10>
 map <Esc>[23~ <F11>
 map <Esc>[24~ <F12>
-"leader key is backslash ("\")
+
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 nnoremap <esc> :noh<return><esc>
@@ -351,10 +379,19 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'Yggdroot/indentLine'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'beyondmarc/opengl.vim'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 Plugin 'google/vim-maktaba'
+Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-surround'
+Plugin 'neoclide/coc.nvim'  " intellisense engine for vim (>= 8.1)
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+"Plugin 'ryanoasis/vim-devicons' " enable if you have nerd-font
+Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'yuezk/vim-js'
 "nerdtreetabs caused err on my macvim
 "Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-misc'
@@ -362,6 +399,7 @@ Plugin 'xolox/vim-lua-ftplugin'
 Plugin 'jnurmine/Zenburn'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'maxbane/vim-asm_ca65'
 "Plugin 'wolfgangmehner/lua-support'
 Plugin 'morhetz/gruvbox'
 Plugin 'nvie/vim-flake8'
@@ -374,6 +412,9 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'aserebryakov/vim-todo-lists'
+Plugin 'dart-lang/dart-vim-plugin'
+Plugin 'natebosch/vim-lsc'
+Plugin 'natebosch/vim-lsc-dart'
 
 " add all your plugins here (note older versions of Vundle
 " used Bundle instead of Plugin)
@@ -566,5 +607,126 @@ function! Tabe(...)
         exe "tabn " . (t + 1)
     endif
 endfunction
+
+"####################END#####################
+"
+"
+"
+"
+"###################### coc.nvim configurations "################################
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
+else
+    set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+else
+    inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocActionAsync('doHover')
+    endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 "####################END#####################

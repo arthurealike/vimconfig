@@ -15,9 +15,8 @@
 "#lua
 "#Bufonly.vim
 "#love2d                 
-
-
-"Installed plugins
+"
+" "Installed plugins
 "-delimitMate'
 "-indentLine'
 "-vim-colors-solarized'
@@ -57,18 +56,25 @@
 "-vim-lsc'
 "-vim-lsc-dart'
 
+
 "Leader key is ","
 "##########################################
 "#                #General                # 
 "##########################################
 
+" Added to fix fzf background -> my terminal profile is dracula that why it
+" put below line to your .gimvrc
+" set termguicolors
+
+" use this if you do not use gui vim
+let g:dracula_colorterm = 0
 
 " Do not ever change this : 
 " help 'nocompatible'
 set nocp
 
 set tws=22x0 "size of terminal window "30x0" uses 30 rows and the current window width.
-
+### Other words
 set encoding=UTF-8
 
 " It is a deadly sin for vim users to delete this minus symbol
@@ -95,6 +101,10 @@ set showmatch
 set smartcase
 
 set aw "autowrite : write file if it has been modified
+
+"no visualbell
+set noerrorbells
+set vb t_vb=
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -181,8 +191,8 @@ let $MYVIMRC = '~/.vimrc'
 ":set listchars=tab:\|\
 "add below line to change end of line char
 "RECOMMENDED if you do not like pipe character -> ,eol:↲
-"
-"
+
+
 :set encoding=utf-8
 :set tabstop=4 "number of space characters that will be inserted when the tab key is pressed
 :set shiftround
@@ -222,12 +232,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " - To learn more about preview window options, see `--preview-window` section of `man fzf`.
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 
-" Preview window on the upper side of the window with 40% height,
-" hidden by default, ctrl-/ to toggle
-let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
-
 " Empty value to disable preview window altogether
-let g:fzf_preview_window = []
+"let g:fzf_preview_window = []
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
@@ -405,7 +411,7 @@ map <F2> :NERDTreeToggle <CR>
 
 "############# (END) ###############
 
-highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
+"highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
@@ -451,7 +457,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Bundle 'Valloric/YouCompleteMe'
 
-Plugin 'dracula/vim', { 'name': 'dracula' }
+"Plugin 'dracula/vim', { 'name': 'dracula' }
 Plugin 'Raimondi/delimitMate'
 Plugin 'Yggdroot/indentLine'
 Plugin 'altercation/vim-colors-solarized'
@@ -548,6 +554,7 @@ function! LuaExecCurrent()
     "execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
 endfunction
 
+
 "au CmdwinLeave * :Silent clear
 "############# (END) ###############
 
@@ -638,13 +645,14 @@ filetype plugin on
 "let g:onedark_termcolors=256
 
 "enable italic
-"let &t_ZH="\e[3m"
-"let &t_ZR="\e[23m" highlight Comment cterm=italic
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m" 
+highlight Comment cterm=italic
 
 ""DRACULE THEME
-"packadd! dracula
-"syntax enable
-"colorscheme dracula
+packadd! dracula
+syntax enable
+colorscheme dracula
 "AirlineTheme dracula
 
 "set it to 1 if your terminal supports italic
@@ -658,7 +666,7 @@ if $TERM == "xterm-256color"
     set t_Co=256
 endif
 
-hi Folded ctermfg=15\ guifg=#378787 ctermbg=20 "my custom color for folded lines
+"hi Folded ctermfg=15\ guifg=#378787 ctermbg=20 "my custom color for folded lines
 
 "It lookin great with dracula -> ~ tilde color
 "177 for purple (HIGHLY RECOMMENDED) , 11 for yellow , 62 for blueviolet
@@ -702,11 +710,11 @@ endif
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"             \ pumvisible() ? "\<C-n>" :
+"             \ <SID>check_back_space() ? "\<TAB>" :
+"             \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -722,8 +730,8 @@ endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -739,16 +747,17 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocActionAsync('doHover')
-    endif
-endfunction
+" enable if coc.vim
+" function! s:show_documentation()
+"     if (index(['vim','help'], &filetype) >= 0)
+"         execute 'h '.expand('<cword>')
+"     else
+"         call CocActionAsync('doHover')
+"     endif
+" endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -803,6 +812,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" enable if coc.vim
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 "####################END#####################

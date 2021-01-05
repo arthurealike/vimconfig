@@ -9,9 +9,8 @@ https://github.com/amix/vimrc,
 https://devhints.io/vimscript <br>
 Make your own or try to get it from the link above.
 
-![Alt text](pngs/macOS/Screen%20Shot%20love2d%20Latest.png
+![Alt text](pngs/macOS/Screen%20Shot%20Latest.png
 "vim-unity-lua-love2d-main")
-
 
 ### Color Cheatsheet (Xterm)
 [List of 256 colors](https://jonasjacek.github.io/colors/) <br>
@@ -44,7 +43,8 @@ Make your own or try to get it from the link above.
 * [vim-glsl](https://github.com/tikhomirov/vim-glsl) <br>
 * [vim-fugitive](https://github.com/tpope/vim-fugitive) <br>
 * [vim-todo-lists](https://github.com/aserebryakov/vim-todo-lists) <br>
-  
+
+
 ## Key Mappings
 **Leader** key is comma (",")
 

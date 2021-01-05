@@ -548,7 +548,6 @@ function! LuaExecCurrent()
     "execute ":!lua" exists("g:mainfile") ? g:mainfile : expand("%")
 endfunction
 
-
 "au CmdwinLeave * :Silent clear
 "############# (END) ###############
 

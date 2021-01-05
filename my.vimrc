@@ -457,7 +457,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Bundle 'Valloric/YouCompleteMe'
 
-"Plugin 'dracula/vim', { 'name': 'dracula' }
+Plugin 'dracula/vim', { 'name': 'dracula' }
 Plugin 'Raimondi/delimitMate'
 Plugin 'Yggdroot/indentLine'
 Plugin 'altercation/vim-colors-solarized'
@@ -649,10 +649,11 @@ let &t_ZH="\e[3m"
 let &t_ZR="\e[23m" 
 highlight Comment cterm=italic
 
-""DRACULE THEME
-packadd! dracula
-syntax enable
-colorscheme dracula
+""DRACULE THEME 
+"manual installation (not needed)
+"packadd! dracula
+"syntax enable
+"colorscheme dracula
 "AirlineTheme dracula
 
 "set it to 1 if your terminal supports italic

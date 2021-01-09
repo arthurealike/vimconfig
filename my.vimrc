@@ -69,38 +69,33 @@
 " use this if you do not use gui vim
 let g:dracula_colorterm = 0
 
-" Do not ever change this : 
-" help 'nocompatible'
-set nocp
-
 set tws=22x0 "size of terminal window "30x0" uses 30 rows and the current window width.
-### Other words
+
 set encoding=UTF-8
 
 " It is a deadly sin for vim users to delete this minus symbol
 set mouse-=a
 set guioptions= "hide scrollbars left & right 
 
-"Relative numbers ** HIGLY RECOMMENDED **
-set rnu
-set nu
+set relativenumber
+set number
 
-set ic "case-insensitive search
+set ignorecase "case-insensitive search
 set ruler "to enable right-bottom numbers in statusbar
-set spr "splitright
-"set laststatus=2
+set splitright 
+"set lasststatus=2
 
 "set listchars=tab:\|., trail:., extends:#, nbsp:. "",nbsp:·,trail:·
 set listchars=tab:\|.,trail:·,extends:#,nbsp:\|,trail:·,precedes:\|
 
 "command line completion
-set wim=longest:full,full
+set wildmode=longest:full,full
 set wildmenu
 set showcmd
 set showmatch
 set smartcase
 
-set aw "autowrite : write file if it has been modified
+set autowrite "autowrite : write file if it has been modified
 
 "no visualbell
 set noerrorbells
@@ -111,12 +106,12 @@ set cmdheight=2
 
 set lazyredraw "when this option is set, the screen will not be redrawn executing macros, registers and other commands that have not typed.
 set showmatch "when a bracket is inserted, briefly jump to the matching one.
-set mat=0 "tenths of a second to show the matching paren, when 'showmatch' is
+set matchtime=0 "tenths of a second to show the matching paren, when 'showmatch' is
 set magic "changes the special characters that can be used in search patterns.
 
-set ai "autoindent : copy indent from current line when starting a new line
-set ci "copyindent : copy the structure of the existing lines indent when autoindenting new line
-set si "smartindent : do smart autoindenting when starting a new line
+set autoindent " copy indent from current line when starting a new line
+set copyindent "copy the structure of the existing lines indent when autoindenting new line
+set smartindent " do smart autoindenting when starting a new line
 set wrap "when on, lines longer than the width of the window will wrap displaying continues on the next line
 
 set undolevels=300 "maximum number of changes that can be undone
@@ -136,15 +131,14 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-set cul "cursorline : highlight the text line of the cursor with CursorLine
+set cursorline "highlight the text line of the cursor with CursorLine
 "set cursorlineopt=both "to highlight current line, and line number
 set cursorlineopt=number "to highlight only line number
 "set cursorlineopt=screenline
 
 set autochdir "change cd whenever a new file is opened such as buffers, tabs
 set shortmess+=c "this option helps to avoid all the hit-enter promts
-" +=c  => avoid ins-completion-menu messages such as "Pattern
-" Not Found
+" +=c  => avoid ins-completion-menu messages such as "Pattern Not Found
 
 "I DO NOT RECOMMEND TO USE TOGGLE BACKGROUND MODE (DARK, LIGHT)
 "MY RECOMMENDATION IS USE DARK WHICH IS DEFAULT
@@ -272,7 +266,7 @@ let NERDTreeShowHidden=1
 
 let g:NERDTreeHijackNetrw=0 "to disable NERDTree to popup for every buffer automatically
 
-let g:NERDTreeWinSize=30 "default size for NERDTree window
+let g:NERDTreeWinSize=40 "default size for NERDTree window
 
 let g:NERDTreeWinPos = "right" "NERDTree windows position is left by default 
 
@@ -360,7 +354,7 @@ map <leader>lua :Tabe *.lua<CR>
 map <leader>ii <esc> gg=G 2<C-o> <CR>
 
 "run *.py <F9>
-au FileType python noremap <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+au FileType python noremap <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR> :call ClearCmdwin() <CR>
 au FileType python noremap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 au! BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
@@ -411,7 +405,7 @@ map <F2> :NERDTreeToggle <CR>
 
 "############# (END) ###############
 
-"highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
+highlight BadWhitespace ctermfg=253 ctermbg=9 guifg=#000000 guibg=#ff0000
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
@@ -659,7 +653,6 @@ highlight Comment cterm=italic
 "set it to 1 if your terminal supports italic
 let g:dracula_italic = 1 
 
-set background=dark
 colorscheme dracula
 
 "enable 256colors
